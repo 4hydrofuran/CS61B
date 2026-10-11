@@ -15,15 +15,33 @@ public class JavaExercises {
      *  If the customer is Erik, return ["sushi", "pasta", "avocado", "coffee"].
      *  In any other case, return an empty String[] of size 3. */
     public static String[] takeOrder(String customer) {
-        // TODO: Fill in this function.
-        return null;
+        if(customer=="Ergun") 
+            {
+                String[] orderforErg={"beyti", "pizza", "hamburger", "tea"};
+                return orderforErg;
+            }
+        else if(customer=="Erik")
+        {
+            String[] orderforErk = {"beyti", "pizza", "hamburger", "tea"};
+            return orderforErk;
+        }
+        String[] empty = new String[3];
+        return empty;
     }
 
     /** Returns the positive difference between the maximum element and minimum element of the given array.
      *  Assumes array is nonempty. */
     public static int findMinMax(int[] array) {
-        // TODO: Fill in this function.
-        return 0;
+        int max=array[0];
+        int min=array[0];
+        
+        int length=array.length;
+        for(int i=0;i<length;i++)
+        {
+            if(max<array[i])max=array[i];
+            if(min>array[i])min=array[i];
+        }
+        return max-min;
     }
 
     /**
@@ -39,8 +57,15 @@ public class JavaExercises {
     }
 
     private static List<Integer> hailstoneHelper(int x, List<Integer> list) {
-        // TODO: Fill in this function.
-        return null;
+        if(x==1)return list;
+        else if(x%2==0) {
+            list.add(x/2);
+            return hailstoneHelper(x/2, list);
+        }
+        else{
+            list.add(x*3+1);
+            return hailstoneHelper(x*3+1, list);
+        }
     }
 
 }
