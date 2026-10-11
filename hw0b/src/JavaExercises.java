@@ -22,7 +22,7 @@ public class JavaExercises {
             }
         else if(customer=="Erik")
         {
-            String[] orderforErk = {"beyti", "pizza", "hamburger", "tea"};
+            String[] orderforErk = {"sushi", "pasta", "avocado", "coffee"};
             return orderforErk;
         }
         String[] empty = new String[3];
@@ -57,13 +57,14 @@ public class JavaExercises {
     }
 
     private static List<Integer> hailstoneHelper(int x, List<Integer> list) {
+        list.add(x);
         if(x==1)return list;
         else if(x%2==0) {
-            list.add(x/2);
+            
             return hailstoneHelper(x/2, list);
         }
         else{
-            list.add(x*3+1);
+            
             return hailstoneHelper(x*3+1, list);
         }
     }
