@@ -5,8 +5,9 @@ public class JavaExercises {
 
     /** Returns an array [1, 2, 3, 4, 5, 6] */
     public static int[] makeDice() {
-        // TODO: Fill in this function.
-        return null;
+        
+        int []array= {1,2,3,4,5,6};
+        return array;
     }
 
     /** Returns the order depending on the customer.
