@@ -121,7 +121,22 @@ public class Model {
      * 2. There are two adjacent tiles with the same value.
      */
     public boolean atLeastOneMoveExists() {
-        // TODO: Fill in this function.
+        
+        if(emptySpaceExists()) return true;
+        else{
+            int size= board.size();
+            for(int x=0;x<size;x++)
+            {
+                for(int y=0;y<size-1;y++)
+                    if(board.tile(x,y).value()==board.tile(x,y+1).value()) return true;
+            }
+            for(int x=0;x<size;x++)
+            {
+                for(int y=0;y<size-1;y++)
+                    if(board.tile(y,x).value()==board.tile(y+1,x).value()) return true;
+            }
+        }
+
         return false;
     }
 
