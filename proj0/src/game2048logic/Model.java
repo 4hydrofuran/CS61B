@@ -158,8 +158,21 @@ public class Model {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
+        int size = board.size();
+        for(;targetY < size - 1;targetY++)
+        {
 
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
+            Tile targetTile = board.tile(x, targetY+1);
+            if(targetTile == null) continue;
+            int targetValue = targetTile.value();
+            if(targetValue==myValue){
+                targetY++;
+                break;
+            }
+            else break;
+        }
+        board.move(x, targetY, currTile);
+        
     }
 
     /** Handles the movements of the tilt in column x of the board
