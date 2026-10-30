@@ -1,27 +1,58 @@
 import java.util.List;
+import java.util.ArrayList; // import the ArrayList class
 
 public class LinkedListDeque61B<T> implements Deque61B<T>{
 
-    public LinkedListDeque61B(){
+    Node sentinal;
+    int size;
 
+    public LinkedListDeque61B(){
+        sentinal = new Node();
+        size = 0;
+    }
+
+    private class Node{
+        T index;
+        Node head;
+        Node tail;
+
+        Node(T input, Node head, Node tail){
+            this.head = head;
+            this.tail = tail;
+            index = input;
+        }
+        Node(){
+            head = this;
+            tail = this;
+            index = null;
+        }
     }
 
     @Override
     public void addFirst(T x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
+        Node newNode = new Node(x, sentinal, sentinal.tail);
+        sentinal.tail.head = newNode;
+        sentinal.tail = newNode;
+        size++;
     }
 
     @Override
     public void addLast(T x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addLast'");
+        Node newNode = new Node(x, sentinal.head, sentinal);
+        sentinal.head.tail = newNode;
+        sentinal.head = newNode;
+        size++;
     }
 
     @Override
     public List<T> toList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toList'");
+        List<T> data = new ArrayList<>();
+        Node temp = sentinal.tail;
+        for(int i =0; i<size; i++){
+            data.add(temp.index);
+            temp = temp.tail;
+        }
+        return data;
     }
 
     @Override
