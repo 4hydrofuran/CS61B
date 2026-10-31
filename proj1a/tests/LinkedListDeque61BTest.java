@@ -57,4 +57,48 @@ public class LinkedListDeque61BTest {
     }
 
     // Below, you'll write your own tests for LinkedListDeque61B.
+     
+    @Test 
+    public void isEmptyTest(){
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.isEmpty()).isTrue();
+        lld1.addFirst(1);
+        assertThat(lld1.isEmpty()).isFalse();
+    }
+    
+    @Test 
+    public void sizeTest(){
+        Deque61B<String> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.size()).isEqualTo(0);
+        lld1.addFirst("null");
+        lld1.addLast("null");
+        assertThat(lld1.size()).isEqualTo(2);
+    }
+
+    @Test 
+    public void getTest(){
+        Deque61B<String> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.get(0)).isNull();
+        lld1.addFirst(null);
+        lld1.addLast("second");
+        assertThat(lld1.get(0)).isNull();
+        assertThat(lld1.get(1)).isEqualTo("second");
+        assertThat(lld1.get(2)).isNull();
+        assertThat(lld1.get(-74)).isNull();
+    }
+    @Test 
+    public void getRecursiveTest(){
+        Deque61B<String> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.getRecursive(0)).isNull();
+        lld1.addFirst(null);
+        lld1.addLast("second");
+        assertThat(lld1.getRecursive(0)).isNull();
+        assertThat(lld1.getRecursive(1)).isEqualTo("second");
+        assertThat(lld1.getRecursive(2)).isNull();
+        assertThat(lld1.getRecursive(-74)).isNull();
+    }
 }

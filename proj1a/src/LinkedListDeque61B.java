@@ -12,19 +12,19 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
     }
 
     private class Node{
-        T index;
+        T value;
         Node head;
         Node tail;
 
         Node(T input, Node head, Node tail){
             this.head = head;
             this.tail = tail;
-            index = input;
+            value = input;
         }
         Node(){
             head = this;
             tail = this;
-            index = null;
+            value = null;
         }
     }
 
@@ -49,7 +49,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
         List<T> data = new ArrayList<>();
         Node temp = sentinal.tail;
         for(int i =0; i<size; i++){
-            data.add(temp.index);
+            data.add(temp.value);
             temp = temp.tail;
         }
         return data;
@@ -57,14 +57,12 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return (size == 0) ? true : false;
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return size;
     }
 
     @Override
@@ -81,14 +79,25 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        if(!(index < size()&&index >= 0)) return null;
+        List<T> tempList = toList();
+        return tempList.get(index);
+
     }
 
     @Override
     public T getRecursive(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecursive'");
+        if(!(index < size()&&index >= 0)) return null;
+        Node temp = sentinal;
+        return getRecursiveHelper(temp, index);
+    }
+
+    private T getRecursiveHelper(Node p, int num){
+        if(num > 0){
+            p = p.tail;
+            return getRecursiveHelper(p, num-1);
+        }
+        return p.tail.value;
     }
 
 
