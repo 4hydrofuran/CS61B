@@ -1,6 +1,17 @@
 import java.util.List;
+import java.lang.Math;
 
 public class ArrayDeque61B<T> implements Deque61B<T>{
+
+    int size;
+    int nextLast;
+    int nextFirst;
+    T[] array;
+
+    public ArrayDeque61B(){
+        size = 0;
+        
+    }
 
     @Override
     public void addFirst(T x) {
