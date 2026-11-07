@@ -6,23 +6,33 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     int size;
     int nextLast;
     int nextFirst;
-    T[] array;
+    T[] items;
+    int volume;
 
     public ArrayDeque61B(){
         size = 0;
+        nextLast = 1;
+        nextFirst = 0;
+        items = (T[]) new Object[8];
+        volume = 8;
+    }
+
+    public void resizingUp(){
         
     }
 
     @Override
     public void addFirst(T x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
+        items[nextFirst] = x;
+        nextFirst = Math.floorMod(nextFirst - 1, volume);
+        size++;
     }
 
     @Override
     public void addLast(T x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addLast'");
+        items[nextLast] = x;
+        nextLast = Math.floorMod(nextLast - 1, volume);
+        size++;
     }
 
     @Override
@@ -39,8 +49,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return size;
     }
 
     @Override
