@@ -21,10 +21,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     private void resizingUp(){
         T[] newItems = (T[]) new Object[2 * volume];
         int count = 0;
-        for(int i = nextFirst + 1; Math.floorMod(i, volume) != nextLast; i++)
+        for(int i = nextFirst + 1; count < size; count++, i++)
         {
             newItems[count] = items[Math.floorMod(i, volume)];
-            count++;
         }
         items = newItems;
         volume = 2 * volume;
@@ -35,10 +34,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     private void resizingDown(){
         T[] newItems = (T[]) new Object[volume / 2];
         int count = 0;
-        for(int i = nextFirst + 1; Math.floorMod(i, volume) != nextLast; i++)
+        for(int i = nextFirst + 1; count < size; count++, i++)
         {
             newItems[count] = items[Math.floorMod(i, volume)];
-            count++;
         }
         items = newItems;
         volume = volume / 2;
@@ -64,6 +62,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public List<T> toList() {
+        if(size == 0) return null;
         List<T> returnList = new ArrayList<>();
         for(int i = 1; i <= size; i++){
             returnList.add(items[Math.floorMod(nextFirst + i, volume)]);
@@ -83,27 +82,29 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T removeFirst() {
+        if(size == 0) return null;
         int thisFirst = Math.floorMod(nextFirst + 1, volume);
         T x = items[thisFirst];
         nextFirst = thisFirst;
         size--;
-        if(size <= volume/2) resizingDown();
+        if(size <= volume / 4 && volume > 8) resizingDown();
         return x;
     }
 
     @Override
     public T removeLast() {
+        if(size == 0) return null;
         int thisLast = Math.floorMod(nextLast - 1, volume);
         T x = items[thisLast];
         nextLast = thisLast;
         size--;
-        if(size <= volume/2) resizingDown();
+        if(size <= volume / 4 && volume > 8) resizingDown();
         return x;
     }
 
     @Override
     public T get(int index) {
-        if((index < 0 )||(index >= size)) return null;
+        if((index < 0)||(index >= size)) return null;
         return items[nextFirst + index +1];
     }
 
@@ -111,5 +112,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     public T getRecursive(int index) {
         throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
     }
+
 
 }
