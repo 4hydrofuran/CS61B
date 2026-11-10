@@ -1,5 +1,127 @@
 package deque;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class ArrayDeque61B<T> implements Deque61B<T> {
+
+    private int size;
+    private int nextLast;
+    private int nextFirst;
+    private T[] items;
+    private int volume;
+
+    public ArrayDeque61B(){
+        size = 0;
+        nextLast = 1;
+        nextFirst = 0;
+        items = (T[]) new Object[8];
+        volume = 8;
+    }
+
+    private void resizingUp(){
+        T[] newItems = (T[]) new Object[2 * volume];
+        int count = 0;
+        for(int i = nextFirst + 1; count < size; count++, i++)
+        {
+            newItems[count] = items[Math.floorMod(i, volume)];
+        }
+        items = newItems;
+        volume = 2 * volume;
+        nextFirst = volume - 1;
+        nextLast = count;
+    }
+
+    private void resizingDown(){
+        T[] newItems = (T[]) new Object[volume / 2];
+        int count = 0;
+        for(int i = nextFirst + 1; count < size; count++, i++)
+        {
+            newItems[count] = items[Math.floorMod(i, volume)];
+        }
+        items = newItems;
+        volume = volume / 2;
+        nextFirst = volume - 1;
+        nextLast = count;
+    }
+
+    @Override
+    public void addFirst(T x) {
+        items[nextFirst] = x;
+        nextFirst = Math.floorMod(nextFirst - 1, volume);
+        size++;
+        if(size >= volume) resizingUp();
+    }
+
+    @Override
+    public void addLast(T x) {
+        items[nextLast] = x;
+        nextLast = Math.floorMod(nextLast + 1, volume);
+        size++;
+        if(size >= volume) resizingUp();
+    }
+
+    @Override
+    public List<T> toList() {
+        if(size == 0) return null;
+        List<T> returnList = new ArrayList<>();
+        for(int i = 1; i <= size; i++){
+            returnList.add(items[Math.floorMod(nextFirst + i, volume)]);
+        }
+        return returnList;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public T removeFirst() {
+        if(size == 0) return null;
+        int thisFirst = Math.floorMod(nextFirst + 1, volume);
+        T x = items[thisFirst];
+        nextFirst = thisFirst;
+        size--;
+        if(size <= volume / 4 && volume > 8) resizingDown();
+        return x;
+    }
+
+    @Override
+    public T removeLast() {
+        if(size == 0) return null;
+        int thisLast = Math.floorMod(nextLast - 1, volume);
+        T x = items[thisLast];
+        nextLast = thisLast;
+        size--;
+        if(size <= volume / 4 && volume > 8) resizingDown();
+        return x;
+    }
+
+    @Override
+    public T get(int index) {
+        if((index < 0)||(index >= size)) return null;
+        return items[nextFirst + index +1];
+    }
+
+    @Override
+    public T getRecursive(int index) {
+        throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDeque61BIterator();
+    }
+
+    private class ArrayDeque61BIterator implements Iterator<T>{
+
+    }
 
 }
