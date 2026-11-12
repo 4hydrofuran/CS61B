@@ -122,6 +122,22 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     private class ArrayDeque61BIterator implements Iterator<T>{
 
+        int wisPos;
+        public ArrayDeque61BIterator(){
+            wisPos = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return wisPos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(wisPos);
+            wisPos++;
+            return returnItem;
+        }
+
     }
 
 }
